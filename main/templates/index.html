@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+{% block content %}
+    <form id="save_product" action="{% url 'product_create' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-10">
+                <label for="inputUrl">Url</label>
+                <input type="text" class="form-control" id="inputUrl" name="url_product">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputStore">Loja</label>
+                <select id="inputStore" class="form-control" name="name">
+                    <option selected></option>
+                    {% for store in object_list %}
+                        <option>{{ store.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary mb-2">Monitorar</button>
+        </div>
+    </form>
+{% endblock content %}

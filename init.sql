@@ -1,0 +1,1 @@
+CREATE DATABASE buying_cheap

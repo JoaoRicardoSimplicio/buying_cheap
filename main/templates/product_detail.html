@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+{% block content %}
+    <div style="text-align: center;">
+        <h3><a href="{{product.url_product}}" target="blank">{{ product.name }}</a></h3>
+        <div class="my-3">
+            <p>{{ product.description_product }}</p>
+        </div>
+    </div>
+    <table class="table my-5">
+        <thead>
+            <th>Price</th>
+            <th>Date</th>
+        </thead>
+        <tbody>
+            <td>{{ product.price_product }}</td>
+            <td>Last Price</td>
+            {% for price in product.prices %}
+                <tr>
+                    <td>{{ price.price_product}}</td>
+                    <td>{{ price.date|date:"d/m/Y H:i:s"}}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
