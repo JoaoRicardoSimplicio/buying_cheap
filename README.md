@@ -1,6 +1,9 @@
 Buying Cheap
 ===========
 
+## About 
+    The purpose of this project is to monitoring the price of products which you can buy of some stores. At the moment, you can monitoring prices of stores Netshoes, Kabum and Shop2gether. 
+
 ## Installation
 
 **NOTE**: For this to run properly you must have `docker` installed because of `postgres`. If you don't, please refer to [docker-docs](https://docs.docker.com).  If you don't fell familiar with docker, install `postgres` in your machine.
