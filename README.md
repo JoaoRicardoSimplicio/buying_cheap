@@ -2,7 +2,9 @@ Buying Cheap
 ===========
 
 ## About 
+
     The purpose of this project is to monitoring the price of products which you can buy of some stores. At the moment, you can monitoring prices of stores Netshoes, Kabum and Shop2gether. 
+
 
 ## Installation
 
