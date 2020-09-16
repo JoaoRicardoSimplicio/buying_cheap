@@ -33,6 +33,13 @@ Setup the database:
     (env) $ python3.8 manage.py migrate
 ```
 
+### First Acess
+Open django shell window in project root (active virtual environment) and run this commands:
+
+```bash
+    (env) bash stores.sh
+```
+
 Last, but not least, run the server:
 
 ```bash
@@ -41,24 +48,11 @@ Last, but not least, run the server:
 
 The server will be available at `http://127.0.0.1:8000`
 
-### First Acess
-Open django shell window in project root (active virtual environment) and run this commands:
-
-```bash
-    (env) $ python3.8 manage.py shell
-    In [1]: from main.tasks.register_stores import register
-    In [1]: register()
-```
-
 ### Update Prices
 For a while, to update all prices of your products, run this commands:
 ```bash
-    (env) $ python3.8 manage.py shell
-    In [1]: from main.tasks.update_prices import task_update_all_prices
-    In [1]: task_update_all_prices()
+    (env) $ bash prices.sh 
 ```
-
-
 
 ### Docker compose error
 You may get the following error when running the compose command:
