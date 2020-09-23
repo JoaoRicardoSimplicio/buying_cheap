@@ -26,6 +26,7 @@
                     <th>Variação dois últimos preços</th>
                     <th>Variação primeiro atual</th>
                     <th>Última atualização</th>
+                    <th>Taxa de Variação</th>
                 </thead>
                 <tbody>
                     {% for product in object_list %}
@@ -35,25 +36,36 @@
                         <td class="">{{ product.store.name }}</td>
                         <td class="">R$ <a href="{% url 'product_detail' product.pk %}">{{ product.price_product }}</a></td>
                         {% if product.diff_last_two_prices < 0 %}
-                            <td style="color: green;">- R$ {{ product.diff_last_two_prices }}</td>
+                            <td style="color: green;">R$ {{ product.diff_last_two_prices|floatformat:2 }}</td>
                         {% elif product.diff_last_two_prices > 0 %}
-                            <td style="color: red;">+ R$ {{ product.diff_last_two_prices }}</td>
+                            <td style="color: red;">R$ {{ product.diff_last_two_prices|floatformat:2 }}</td>
                         {% elif product.diff_last_two_prices == 0 %}
-                            <td style="color: blue;">R$ {{ product.diff_last_two_prices }}</td>
+                            <td style="color: blue;">R$ {{ product.diff_last_two_prices|floatformat:2 }}</td>
                         {% else %}
                             <td>-</td>
                         {% endif %}
+
                         {% if product.diff_first_and_last_prices < 0 %}
-                            <td style="color: green;">- R$ {{ product.diff_first_and_last_prices }}</td>
+                            <td style="color: green;">R$ {{ product.diff_first_and_last_prices|floatformat:2 }}</td>
                         {% elif product.diff_first_and_last_prices > 0 %}
-                            <td style="color: red;">+ R$ {{ product.diff_first_and_last_prices }}</td>
+                            <td style="color: red;">R$ {{ product.diff_first_and_last_prices|floatformat:2 }}</td>
                         {% elif product.diff_first_and_last_prices == 0 %}
-                            <td style="color: blue;">R$ {{ product.diff_first_and_last_prices }}</td>
+                            <td style="color: blue;">R$ {{ product.diff_first_and_last_prices|floatformat:2 }}</td>
                         {% else %}
                             <td>-</td>
                         {% endif %}
-                        {% if product.last_update_price %}
-                            <td>{{ product.last_update_price|date:"d/m/Y H:i:s" }}</td>
+                        {% if product.last_update_price_date %}
+                            <td>{{ product.last_update_price_date|date:"d/m/Y H:i:s" }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
+                        {% if product.variance_rate_between_first_last_prices < 0 %}
+                            <td style="color: green;">{{ product.variance_rate_between_first_last_prices|floatformat:2 }} %</td>
+                        {% elif product.variance_rate_between_first_last_prices > 0 %}
+                            <td style="color: red;">{{ product.variance_rate_between_first_last_prices|floatformat:2 }} %</td>
+                        {% elif product.variance_rate_between_first_last_prices == 0 %}
+                            <td style="color: blue;">{{ product.variance_rate_between_first_last_prices|floatformat:2 }} %</td>
                         {% else %}
                             <td>-</td>
                         {% endif %}

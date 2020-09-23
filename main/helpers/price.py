@@ -5,7 +5,10 @@ def convert_price(price):
     price = price.replace("\t", "")
     price = price.replace("R$", '')
     price = price.replace(" ", '')
-    [num, dec] = price.split(",")
+    try:
+        [num, dec] = price.split(",")
+    except Exception:
+        return float(price)
     num = int(num.replace(".", ""))
     dec = (int(dec)/100)
     return float(num + dec)

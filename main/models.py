@@ -25,20 +25,33 @@ class Product(models.Model):
         return self.pricehistory_set.all()
 
     @property
+    def first_price(self):
+        return self.pricehistory_set.all().first().price_product
+
+    @property
+    def last_price(self):
+        return self.pricehistory_set.all().last().price_product
+
+    @property
     def diff_last_two_prices(self):
-        last_price = self.pricehistory_set.all().last().price_product
-        return self.price_product - last_price
+        return self.price_product - self.last_price
 
     @property
     def diff_first_and_last_prices(self):
-        first_price = self.pricehistory_set.all().first().price_product
-        return self.price_product - first_price
+        return self.price_product - self.first_price
 
     @property
-    def last_update_price(self):
+    def last_update_price_date(self):
         if self.pricehistory_set.filter(product=self.id).exists():
             return self.pricehistory_set.all().last().date
         return None
+
+    @property
+    def variance_rate_between_first_last_prices(self):
+        if not self.diff_first_and_last_prices:
+            return None
+        return (self.diff_first_and_last_prices/self.first_price) * 100
+        
 
     def __str__(self):
         return self.name

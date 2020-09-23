@@ -8,7 +8,9 @@ from tqdm import tqdm
 list_stores = [
     'Kabum',
     'Shop2gether',
-    'Netshoes'
+    'Netshoes',
+    'MercadoLivre',
+    'BikePointSC'
 ]
 
 class Command(BaseCommand):

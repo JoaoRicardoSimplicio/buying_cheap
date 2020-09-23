@@ -20,7 +20,7 @@ class ProductCreate(View):
                 product.create(request.POST)
                 return HttpResponseRedirect(reverse('product_list'))
             except Exception as Error:
-                messages.error(request, Error)
+                messages.error(request, "Ops! Tivemos um problema ao tentar monitorar está url")
                 return HttpResponseRedirect(reverse("index"))
         else:
             messages.error(

@@ -4,7 +4,7 @@
     <div style="text-align: center;">
         <h3><a href="{{product.url_product}}" target="blank">{{ product.name }}</a></h3>
         <div class="my-3">
-            <p>{{ product.description_product }}</p>
+            <p>{{ product.description_product|default_if_none:"-" }}</p>
         </div>
     </div>
     <table class="table my-5">
