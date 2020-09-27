@@ -5,7 +5,9 @@ from django.contrib import messages
 
 from main.forms import ProductForm
 from main.services.product import ProductTool
-from main.models import Product
+from main.services.store import verify_if_store_exists
+from main.models import Product, Store
+from main.queries.product_queries import product_ordination
 
 
 class ProductCreate(View):
@@ -21,7 +23,9 @@ class ProductCreate(View):
                 messages.error(request, Error)
                 return HttpResponseRedirect(reverse("index"))
         else:
-            messages.error(request, "Certifique de digitar uma url correta e escolher a loja correspondente")
+            messages.error(
+                request, "Certifique de digitar uma url correta e escolher a loja correspondente"
+            )
             return HttpResponseRedirect(reverse("index"))
 
 
@@ -30,9 +34,19 @@ class ProductList(ListView):
     model = Product
     template_name = 'product_list.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["stores"] = Store.objects.all()
         return context
+
+    def get_queryset(self):
+        store = self.request.GET.get("store")
+        if verify_if_store_exists(store):
+            products = Product.objects.filter(store__name=store)
+        else:
+            products = Product.objects.all()
+        products = product_ordination(products)
+        return products
 
 
 class ProductDetail(DetailView):

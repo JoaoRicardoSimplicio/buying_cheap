@@ -17,7 +17,7 @@ class Product(models.Model):
     url_product = models.URLField(max_length=500, unique=True)
     id_product_store = models.CharField(max_length=100, null=True)
     price_product = models.FloatField(max_length=20)
-    description_product = models.TextField(max_length=5000)
+    description_product = models.TextField(max_length=5000, null=True)
     url_image = models.URLField(max_length=500, null=True)
 
     @property
@@ -25,9 +25,20 @@ class Product(models.Model):
         return self.pricehistory_set.all()
 
     @property
-    def diff(self):
+    def diff_last_two_prices(self):
         last_price = self.pricehistory_set.all().last().price_product
         return self.price_product - last_price
+
+    @property
+    def diff_first_and_last_prices(self):
+        first_price = self.pricehistory_set.all().first().price_product
+        return self.price_product - first_price
+
+    @property
+    def last_update_price(self):
+        if self.pricehistory_set.filter(product=self.id).exists():
+            return self.pricehistory_set.all().last().date
+        return None
 
     def __str__(self):
         return self.name
