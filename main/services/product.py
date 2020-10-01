@@ -1,6 +1,8 @@
 from main.crawlers.shop2gether import StoreShop2gether
 from main.crawlers.kabum import StoreKabum
 from main.crawlers.netshoes import StoreNetshoes
+from main.crawlers.mercado_livre import StoreMercadoLivre
+from main.crawlers.bikepointsc import StoreBikePointSC
 
 from main.models import Product, Store
 
@@ -39,3 +41,7 @@ def select_store(name):
         return StoreKabum
     elif name == "Netshoes":
         return StoreNetshoes
+    elif name == "MercadoLivre":
+        return StoreMercadoLivre
+    elif name == "BikePointSC":
+        return StoreBikePointSC

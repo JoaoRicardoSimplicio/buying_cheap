@@ -1,7 +1,9 @@
 import requests
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'
+    'Content-Type': 'text/plain', 
+    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0',
+    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
 }
 
 

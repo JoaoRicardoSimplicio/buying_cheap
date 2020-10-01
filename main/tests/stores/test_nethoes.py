@@ -5,7 +5,7 @@ from main.crawlers.netshoes import StoreNetshoes
 from main.services.product import select_store
 
 
-def open_fixture_product_camisa_cruzeir():
+def open_fixture_product_camisa_cruzeiro():
     path = "main/tests/fixtures/"
     with open(f"{path}/camisa_cruzeiro.html", "rb") as f:
         contents = f.read()
@@ -29,7 +29,7 @@ class TestStoreNetshoe(TestCase):
 
     def test_get_information_correctly(self):
         with mock.patch("main.crawlers.main.Main._request_page",
-                        return_value=open_fixture_product_camisa_cruzeir()
+                        return_value=open_fixture_product_camisa_cruzeiro()
                         ):
             self.assertEqual(self.product.price, 249.99)
             self.assertEqual(self.product.name, "Camisa Cruzeiro I 20/21 s/nº Torcedor Adidas Masculina - Azul | Netshoes")
