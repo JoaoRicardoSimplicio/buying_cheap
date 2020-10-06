@@ -4,18 +4,16 @@ from main.helpers.price import convert_price
 from bs4 import BeautifulSoup
 
 
-class StoreKabum(Main):
+class StoreDafiti(Main):
 
-    store = "Kabum"
-    url_domain_https = "https://www.kabum.com"
-    url_domain_http = "http://www.kabum.com"
+    store = "Dafiti"
+    url_domain_https = "https://www.dafiti.com"
+    url_domain_http = "http://www.dafiti.com"
 
     def __init__(self, url):
         if not url.startswith(self.url_domain_https):
             if not url.startswith(self.url_domain_http):
                 raise Exception("Url don't pertence this store")
-        if url.find("produto") < 0:
-            raise Exception("This not a valid product")
         self.url = url
 
     @property
@@ -42,34 +40,18 @@ class StoreKabum(Main):
     @property
     def price(self):
         if not hasattr(self, "_price"):
-            price = None
             try:
-                price = self.result.select(".box_comprar-cm")[0].select(
-                    ".box_preco-cm")[0].select(".preco_desconto_avista-cm")[0].string
+                price = self.result.select(".catalog-detail-price-line")[1].span.attrs["content"]
+                self._price = convert_price(price)
             except Exception:
-                pass
-            if not price:
-                try:
-                    price = self.result.select(".box_comprar-cm")[0].select(
-                        ".box_preco-cm")[0].select(".preco_desconto-cm")[0].string
-                except Exception:
-                    pass
-            if not price:
-                try:
-                    price = self.result.select(".preco_traco")[0].select(
-                        ".preco_desconto")[0].span.strong.string
-                except Exception:
-                    price = self.result.select(".preco_traco")[0].select(
-                        ".preco_normal")[0].string
-                price = price.replace("\n", "").replace("\t", "").replace(" ", "")
-        self._price = convert_price(price)
+                self._price = None
         return self._price
 
     @property
     def description(self):
         if not hasattr(self, "_description"):
             try:
-                self._description = self.result.select(".content_tab")[0].p.string
+                self._description = self.result.find(itemprop="description").string
             except Exception:
                 self._description = None
         return self._description
@@ -78,7 +60,7 @@ class StoreKabum(Main):
     def image(self):
         if not hasattr(self, "_image"):
             try:
-                self._image = self.result.select(".imagem_produto_descricao")[0].get("src")
+                self._image = self.result.select(".gallery-preview")[0].img.get("data-original")
             except Exception:
                 self._image = None
         return self._image
@@ -88,11 +70,11 @@ class StoreKabum(Main):
         sizes = []
         if not hasattr(self, "_avaliable_sizes"):
             try:
-                # items = self.result.select(".product-size-selector")[0].select(".radio-options")[0].select(".product-item")
-                # for item in items:
-                #     if item.text not in sizes:
-                #         sizes.append(item.text)
-                self._avaliable_sizes = None
+                items = self.result.select(".product-size-selector")[0].select(".radio-options")[0].select(".product-item")
+                for item in items:
+                    if item.text not in sizes:
+                        sizes.append(item.text)
+                self._avaliable_sizes = sizes
             except Exception:
                 self._avaliable_sizes = None
         return self._avaliable_sizes
@@ -102,6 +84,3 @@ class StoreKabum(Main):
 
     def _extract_result(self):
         return BeautifulSoup(self.page, "html.parser")
-
-    def display_attributes(self):
-        return super().show_attributes(self)

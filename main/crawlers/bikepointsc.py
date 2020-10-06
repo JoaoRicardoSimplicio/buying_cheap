@@ -68,6 +68,21 @@ class StoreBikePointSC(Main):
                 self._image = None
         return self._image
 
+    @property
+    def avaliable_sizes(self):
+        sizes = []
+        if not hasattr(self, "_avaliable_sizes"):
+            try:
+                items = self.result.find(id="tamanho").findAll("option")
+                for item in items:
+                    if item.text not in sizes:
+                        sizes.append(item.text)
+                sizes.remove(" --- selecione --- ")
+                self._avaliable_sizes = sizes
+            except Exception:
+                self._avaliable_sizes = None
+        return self._avaliable_sizes
+
     def _extract_page(self):
         return super()._request_page(self.url)
 

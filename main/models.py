@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class Store(models.Model):
@@ -14,15 +15,16 @@ class Product(models.Model):
 
     name = models.CharField(max_length=500)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
-    url_product = models.URLField(max_length=500, unique=True)
+    url_product = models.URLField(max_length=5000, unique=True)
     id_product_store = models.CharField(max_length=100, null=True)
     price_product = models.FloatField(max_length=20)
     description_product = models.TextField(max_length=5000, null=True)
     url_image = models.URLField(max_length=500, null=True)
+    sizes = ArrayField(models.CharField(max_length=255), null=True, size=10)
 
     @property
     def prices(self):
-        return self.pricehistory_set.all()
+        return self.pricehistory_set.all().order_by("-date")
 
     @property
     def first_price(self):
