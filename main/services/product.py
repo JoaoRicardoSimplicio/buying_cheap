@@ -3,6 +3,8 @@ from main.crawlers.kabum import StoreKabum
 from main.crawlers.netshoes import StoreNetshoes
 from main.crawlers.mercado_livre import StoreMercadoLivre
 from main.crawlers.bikepointsc import StoreBikePointSC
+# from main.crawlers.zattini import StoreZattini
+from main.crawlers.dafiti import StoreDafiti
 
 from main.models import Product, Store
 
@@ -27,7 +29,8 @@ class ProductTool:
                         'store': store,
                         'price_product': store_crawler.price,
                         'description_product': store_crawler.description,
-                        'url_image': store_crawler.image
+                        'url_image': store_crawler.image,
+                        'sizes': store_crawler.avaliable_sizes
                     }
                 )
             except Exception as Error:
@@ -45,3 +48,7 @@ def select_store(name):
         return StoreMercadoLivre
     elif name == "BikePointSC":
         return StoreBikePointSC
+    elif name == "Zattini":
+        return StoreZattini
+    elif name == "Dafiti":
+        return StoreDafiti

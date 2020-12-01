@@ -14,7 +14,7 @@ class Command(BaseCommand):
         products = Product.objects.all()
         for product in tqdm(products):
             self.update_price(product.id)
-            time.sleep(30)
+            time.sleep(10)
 
 
     def update_price(self, id):

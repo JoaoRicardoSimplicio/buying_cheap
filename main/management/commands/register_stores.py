@@ -10,7 +10,9 @@ list_stores = [
     'Shop2gether',
     'Netshoes',
     'MercadoLivre',
-    'BikePointSC'
+    'BikePointSC',
+    'Zattini',
+    'Dafiti'
 ]
 
 class Command(BaseCommand):

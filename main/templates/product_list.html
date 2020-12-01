@@ -23,6 +23,7 @@
                     <th class="">Nome</th>
                     <th class="">Loja</th>
                     <th class="">Preço</th>
+                    <th class="">Tamanhos disponíveis</th>
                     <th>Variação dois últimos preços</th>
                     <th>Variação primeiro atual</th>
                     <th>Última atualização</th>
@@ -35,6 +36,15 @@
                         <td class=""><a href="{{ product.url_product }}" target="_blank">{{ product.name }}</a></td>
                         <td class="">{{ product.store.name }}</td>
                         <td class="">R$ <a href="{% url 'product_detail' product.pk %}">{{ product.price_product }}</a></td>
+                        {% if product.sizes %}
+                            <td class="col-4">
+                                {% for size in product.sizes %}
+                                    {{ size }}<br>
+                                {% endfor %}
+                            </td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
                         {% if product.diff_last_two_prices < 0 %}
                             <td style="color: green;">R$ {{ product.diff_last_two_prices|floatformat:2 }}</td>
                         {% elif product.diff_last_two_prices > 0 %}
