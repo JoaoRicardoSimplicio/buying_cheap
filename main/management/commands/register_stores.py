@@ -12,7 +12,8 @@ list_stores = [
     'MercadoLivre',
     'BikePointSC',
     'Zattini',
-    'Dafiti'
+    'Dafiti',
+    'Bikeinn'
 ]
 
 class Command(BaseCommand):

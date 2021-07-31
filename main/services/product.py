@@ -3,6 +3,7 @@ from main.crawlers.kabum import StoreKabum
 from main.crawlers.netshoes import StoreNetshoes
 from main.crawlers.mercado_livre import StoreMercadoLivre
 from main.crawlers.bikepointsc import StoreBikePointSC
+from main.crawlers.bikeinn import Bikeinn
 # from main.crawlers.zattini import StoreZattini
 from main.crawlers.dafiti import StoreDafiti
 
@@ -52,3 +53,5 @@ def select_store(name):
         return StoreZattini
     elif name == "Dafiti":
         return StoreDafiti
+    elif name == "Bikeinn":
+        return Bikeinn
